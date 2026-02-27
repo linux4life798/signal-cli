@@ -1,0 +1,19 @@
+Source: signal-cli
+Section: net
+Priority: optional
+Maintainer: Craig Hesling <craig@hesling.com>
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+               openjdk-25-jdk-headless,
+               asciidoc-base
+Standards-Version: 4.7.0
+Homepage: https://github.com/AsamK/signal-cli
+
+Package: signal-cli
+Architecture: any
+Depends: ${misc:Depends},
+         openjdk-25-jre-headless
+Description: command-line client for Signal Messenger
+ signal-cli is an unofficial command-line interface for Signal Messenger.
+ It supports registration or linking, sending and receiving messages,
+ and daemon-style interfaces via JSON-RPC and D-Bus.

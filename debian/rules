@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --buildsystem=none
+
+override_dh_auto_build:
+	./gradlew --no-daemon installDist
+	$(MAKE) -C man all
+
+override_dh_auto_clean:
+	./gradlew --no-daemon clean
+	$(MAKE) -C man clean

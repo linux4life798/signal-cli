@@ -1,0 +1,29 @@
+name: Debian Package Builder
+
+on: [push, pull_request]
+
+jobs:
+  build-debs:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build Debian package for amd64
+        uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
+          # GitHub runners can export host JAVA_HOME paths that are invalid
+          # in the Debian container; clear it so gradle uses Java from PATH.
+          JAVA_HOME: ""
+        with:
+          docker-image: debian:testing
+          host-arch: amd64
+          buildpackage-opts: --build=binary --no-sign
+
+      - name: Upload package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: signal-cli-debian-package-${{ github.sha }}
+          path: debian/artifacts/*

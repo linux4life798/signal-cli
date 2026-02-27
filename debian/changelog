@@ -1,0 +1,5 @@
+signal-cli (0.14.0-1) UNRELEASED; urgency=medium
+
+  * Initial Debian packaging.
+
+ -- Craig Hesling <craig@hesling.com>  Thu, 26 Feb 2026 16:57:59 -0800
