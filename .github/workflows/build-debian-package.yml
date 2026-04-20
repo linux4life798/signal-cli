@@ -25,8 +25,10 @@ jobs:
         with:
           docker-image: debian:testing
           host-arch: amd64
-          extra-build-deps: devscripts git git-buildpackage
-          before-build-hook: gbp dch --since=v0.14.0 -R -N $(git describe | sed 's/^v//') --spawn-editor=never
+          extra-build-deps: devscripts git
+          # Stamp a fresh top changelog entry for CI using the current git-describe
+          # output as the full Debian package version.
+          before-build-hook: dch --controlmaint --distribution unstable --newversion "$(git describe --tags --always | sed 's/^v//')" "CI build"
           buildpackage-opts: --build=binary --no-sign
 
       - name: Upload package artifacts
